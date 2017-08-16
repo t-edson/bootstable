@@ -1,4 +1,4 @@
-# boots_table
+# Bootstable
 Javascript library to make HMTL tables editable, using Bootstrap
 
 "boots_table" is a javascript library, that lets convert a HTML static table to a editable table. 
