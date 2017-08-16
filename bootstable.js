@@ -196,5 +196,5 @@ function TableToCSV(separator) {  //Convierte tabla a CSV
         }
         tmp = tmp + datFil + '\n';
     });
-    alert('fila:' + tmp);
+    return tmp;
 }
