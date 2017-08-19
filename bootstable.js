@@ -156,8 +156,7 @@ function rowAgreg() {  //Agrega fila a la tabla $tab_en_edic
                 htmlDat = htmlDat + '<td></td>';
             }
         });
-        var $ultfila = $tab_en_edic.find('tr:last'); //¿hay útlima fila?
-        $ultfila.after('<tr>'+htmlDat+'</tr>');
+        $tab_en_edic.find('tbody').append('<tr>'+htmlDat+'</tr>');
     } else {
         //Hay otras filas, podemos clonar la última fila, para copiar los botones
         var $ultFila = $tab_en_edic.find('tr:last');
