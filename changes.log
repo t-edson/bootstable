@@ -1,0 +1,4 @@
+VERSION 1.1
+===========
+* Adden the event onBeforeDelete().
+* Fixed the call to event OnAdd().
