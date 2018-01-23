@@ -1,14 +1,12 @@
 /*
-Boots_table
+Bootstable
  @description  Javascript library to make HMTL tables editable, using Bootstrap
- @version 1.0
+ @version 1.1
  @autor Tito Hinostroza
- @updated 2017-08-15
 */
   "use strict";
-    //variables globales
-  var $tab_en_edic = null;  //tabla que se edita
-  var params = null;  //parámetros
+  //Global variables
+  var params = null;  		//Parameters
   var colsEdi =null;
   var newColHtml = '<div class="btn-group pull-right">'+
 '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);">' +
@@ -28,26 +26,27 @@ Boots_table
     
   $.fn.SetEditable = function (options) {
     var defaults = {
-        columnsEd: null,    //index td editable, if null all td editables Ex.: "1,2,3,4,5"
-        $addButton: null,  //Objeto Jquery del botón Agregar
-        onEdit: function() {},   //evento de edición
-        onDelete: function() {}, //evento de eliminación
-        onAdd: function() {}     //evento de agregación
+        columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
+        $addButton: null,        //Jquery object of "Add" button
+        onEdit: function() {},   //Called after edition
+		onBeforeDelete: function() {}, //Called before deletion
+        onDelete: function() {}, //Called after deletion
+        onAdd: function() {}     //Called when added a new row
     };
     params = $.extend(defaults, options);
     this.find('thead tr').append('<th name="buttons"></th>');  //encabezado vacío
     this.find('tbody tr').append(colEdicHtml);
-    $tab_en_edic = this;  //guarda referencia
-    //Procesa parámetro "addButton"
+	var $tabedi = this;   //Read reference to the current table, to resolve "this" here.
+    //Process "addButton" parameter
     if (params.$addButton != null) {
         //Se proporcionó parámetro
         params.$addButton.click(function() {
-            rowAgreg();
+            rowAddNew($tabedi.attr("id"));
         });
     }
-    //Procesa parámetro "columnsEd"
+    //Process "columnsEd" parameter
     if (params.columnsEd != null) {
-        //Extrae campos
+        //Extract felds
         colsEdi = params.columnsEd.split(',');
     }
   };
@@ -137,10 +136,12 @@ function rowEdit(but) {  //Inicia la edición de una fila
 }
 function rowElim(but) {  //Elimina la fila actual
     var $row = $(but).parents('tr');  //accede a la fila
+    params.onBeforeDelete($row);
     $row.remove();
     params.onDelete();
 }
-function rowAgreg() {  //Agrega fila a la tabla $tab_en_edic
+function rowAddNew(tabId) {  //Agrega fila a la tabla indicada.
+var $tab_en_edic = $("#" + tabId);  //Table to edit
     var $filas = $tab_en_edic.find('tbody tr');
     if ($filas.length==0) {
         //No hay filas de datos. Hay que crearlas completas
@@ -171,11 +172,12 @@ function rowAgreg() {  //Agrega fila a la tabla $tab_en_edic
             }
         });
     }
+	params.onAdd();
 }
-function TableToCSV(separator) {  //Convierte tabla a CSV
-    //alert('aaa');
+function TableToCSV(tabId, separator) {  //Convierte tabla a CSV
     var datFil = '';
     var tmp = '';
+	var $tab_en_edic = $("#" + tabId);  //Table source
     $tab_en_edic.find('tbody tr').each(function() {
         //Termina la edición si es que existe
         if (ModoEdicion($(this))) {
