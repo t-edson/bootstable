@@ -1,7 +1,7 @@
 # Bootstable
 Javascript library to make HMTL tables editable, using Bootstrap
 
-"boots_table" is a javascript library, that lets convert a HTML static table to a editable table. 
+"bootstable" is a javascript library (plug-in), that lets convert a HTML static table to a editable table. 
 A table is made editable, including several buttons to perform the edition actions.
 
 Edition options includes:
@@ -40,8 +40,9 @@ Includes a "New row" button:
 
 Parameters:
 
-        columnsEd: null,    //Index to editable columns: "1,2,3,4,5"
-        $addButton: null,   //Jquery Add button
-        onEdit: function() {},   //Edit event
-        onDelete: function() {}, //Delete event
-        onAdd: function() {}     //Add event
+        columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
+        $addButton: null,        //Jquery object of "Add" button
+        onEdit: function() {},   //Called after edition
+        onBeforeDelete: function() {}, //Called before deletion
+        onDelete: function() {}, //Called after deletion
+        onAdd: function() {}     //Called when added a new row
