@@ -1,6 +1,8 @@
 # Bootstable
 Javascript library to make HMTL tables editable, using Bootstrap
 
+![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/2017/04/PicPas.png "PicPas IDE")
+
 "Bootstable" is a javascript library (plug-in), that lets convert a HTML static table to a editable table. 
 A table is made editable, including several buttons to perform the edition actions.
 
