@@ -38,6 +38,16 @@ Includes a "New row" button:
                     $addButton: $('#but_add')
       });
 
+IMPORTANT: Bootstable need the ID of the table to edit, and can only work on a single table. 
+
+      $('.mytable').SetEditable();    //BAD. No class.
+      $('table').SetEditable();    //BAD. No several tables
+
+If several tables need to be editable in a same Web page, it's needed to set each table:
+
+      $('#mytable1').SetEditable();
+      $('#mytable2').SetEditable();
+
 Parameters:
 
         columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
