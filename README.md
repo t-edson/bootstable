@@ -40,13 +40,15 @@ Includes a "New row" button:
 
 IMPORTANT: Bootstable need the ID of the table to edit, and can only work on a single table. 
 
-      $('.mytable').SetEditable();    //BAD. No class.
-      $('table').SetEditable();    //BAD. No several tables
+      $('.mytable').SetEditable();  //BAD! No class reference allowed.
+      $('table').SetEditable();     //BAD! No several tables allowed.
 
 If several tables need to be editable in a same Web page, it's needed to set each table:
 
       $('#mytable1').SetEditable();
       $('#mytable2').SetEditable();
+
+LIMITATION: When using several editable tables, events won't work properly.
 
 Parameters:
 
