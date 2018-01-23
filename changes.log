@@ -1,4 +1,6 @@
-VERSION 1.1
+Version 1.1
 ===========
-* Adden the event onBeforeDelete().
-* Fixed the call to event OnAdd().
+* 21/01/2017: Adden the event onBeforeDelete().
+* 22/01/2017: Fixed the call to event OnAdd().
+* 23/01/2017: Implemented the ability to create multiples editable tables in the same page.
+* 23/01/2017: Modified the TableToCSV() function declaration. A new parameter is added to specify the table.
