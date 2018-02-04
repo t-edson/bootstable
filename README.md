@@ -19,7 +19,7 @@ Dependencies:
 
 Bootstrap is necessary to format correctly the controls used, and to draw icons.
 
-No database connection is included. The library was designed to work offline.
+No database connection is included. The library was designed to work offline, when editing.
 
 Examples:
 
