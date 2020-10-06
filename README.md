@@ -65,7 +65,7 @@ Parameters:
         onDelete: function() {}, //Called after deletion
         onAdd: function() {}     //Called when added a new row
 		
-# Referemces
+# References
 
 Some page explaining the use of bootstable:
 
