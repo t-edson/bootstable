@@ -15,15 +15,15 @@ Bootstable
 '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="rowElim(this);">' +
 '<span class="glyphicon glyphicon-trash" > </span>'+
 '</button>'+
-'<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' +
+'<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' + 
 '<span class="glyphicon glyphicon-ok" > </span>'+
 '</button>'+
-'<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' +
+'<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' + 
 '<span class="glyphicon glyphicon-remove" > </span>'+
 '</button>'+
     '</div>';
-  var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>';
-
+  var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>'; 
+    
   $.fn.SetEditable = function (options) {
     var defaults = {
         columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
@@ -31,9 +31,7 @@ Bootstable
         onEdit: function() {},   //Called after edition
 		onBeforeDelete: function() {}, //Called before deletion
         onDelete: function() {}, //Called after deletion
-        onAdd: function() {},     //Called when added a new row
-		$addColButton : function() {}, //rowAddNewCol
-		onAddCol : function() {} // Called after adding a column
+        onAdd: function() {}     //Called when added a new row
     };
     params = $.extend(defaults, options);
     this.find('thead tr').append('<th name="buttons"></th>');  //encabezado vacío
@@ -46,16 +44,6 @@ Bootstable
             rowAddNew($tabedi.attr("id"));
         });
     }
-
-    if (params.$addColButton != null) {
-        //Se proporcionó parámetro
-        params.$addColButton.click(function() {
-            rowAddNewCol($tabedi.attr("id"));
-        });
-    }
-
-
-
     //Process "columnsEd" parameter
     if (params.columnsEd != null) {
         //Extract felds
@@ -71,7 +59,7 @@ function IterarCamposEdit($cols, tarea) {
         if (!EsEditable(n-1)) return;   //noe s campo editable
         tarea($(this));
     });
-
+    
     function EsEditable(idx) {
     //Indica si la columna pasada está configurada para ser editable
         if (colsEdi==null) {  //no se definió
@@ -152,8 +140,6 @@ function rowElim(but) {  //Elimina la fila actual
     $row.remove();
     params.onDelete();
 }
-
-
 function rowAddNew(tabId) {  //Agrega fila a la tabla indicada.
 var $tab_en_edic = $("#" + tabId);  //Table to edit
     var $filas = $tab_en_edic.find('tbody tr');
@@ -175,7 +161,7 @@ var $tab_en_edic = $("#" + tabId);  //Table to edit
     } else {
         //Hay otras filas, podemos clonar la última fila, para copiar los botones
         var $ultFila = $tab_en_edic.find('tr:last');
-        $ultFila.clone().appendTo($ultFila.parent());
+        $ultFila.clone().appendTo($ultFila.parent());  
         $ultFila = $tab_en_edic.find('tr:last');
         var $cols = $ultFila.find('td');  //lee campos
         $cols.each(function() {
@@ -188,93 +174,6 @@ var $tab_en_edic = $("#" + tabId);  //Table to edit
     }
 	params.onAdd();
 }
-
-
-
-
-
-
-function rowAddNewCol(tabId) {  //Agrega fila a la tabla indicada.
-var $tab_en_edic = $("#" + tabId);  //Table to edit
-    var $filas = $tab_en_edic.find('tbody tr');
-    if ($filas.length==0) {
-        //No hay filas de datos. Hay que crearlas completas
-
-		alert('NO cols found');
-
-		//var $row = $tab_en_edic.find('thead tr');  //encabezado
-        //var $cols = $row.find('th');  //lee campos
-        //construye html
-        //var htmlDat = '';
-        //$cols.each(function() {
-        //    if ($(this).attr('name')=='buttons') {
-        //        //Es columna de botones
-        //        htmlDat = htmlDat + colEdicHtml;  //agrega botones
-        //    } else {
-        //        htmlDat = htmlDat + '<td></td>';
-        //   }
-        //});
-        //$tab_en_edic.find('tbody').append('<tr>'+htmlDat+'</tr>');
-
-
-
-
-
-
-    } else {
-		//alert('Entrring COls Found Section cols found');
-		//var $allrows = $filas.find('tr');
-		$filas.each(function() {
-			//alert('Entering cols'+$(this).html);
-			//$(this).append('<td></td>');
-			$(this).find('td:last').before('<td></td>');
-		});
-    }
-
-	var $row = $tab_en_edic.find('thead tr');
-	var $cols = $row.find('th');
-	//$row.find('th').before('<th>Newly Added Coulmns</th>');
-
-
-	// $row.find('th:last').before('<th>new added </th>');
-	// $row.find('th:last-of-type').before('<th>new added </th>');
-	//$('<th>new added </th>').insertBefore($row.find('th:last'))
-	//$row.find('th').last().before('<th>new added </th>');
-
-
-
-	var colname=prompt("Please enter column name","new column");
-	if (colname!=null){
-       var alertcolname = "Column  " + colname + "  will be created ";
-       //alert(alertcolname);
-    }
-	else{
-		colname = "new column";
-	}
-
-
-	$row.find('th:last').prev().before('<th>'+ colname + '</th>');
-
-	//$row.find('th:last').prev().before('<th>new added </th>');
-
-
-
-	//$( "<th> </th>" ).insertBefore($row.find('th'));
-	//$cols.each(function() {
-	//	if ($(this).attr('name')=='buttons') {
-	//		//Es columna de botones
-	//	} else {
-	//		$(this).html('');  //limpia contenido
-     //   }
-    //});
-
-	params.onAddCol();
-}
-
-
-
-
-
 function TableToCSV(tabId, separator) {  //Convierte tabla a CSV
     var datFil = '';
     var tmp = '';
@@ -294,7 +193,7 @@ function TableToCSV(tabId, separator) {  //Convierte tabla a CSV
             }
         });
         if (datFil!='') {
-            datFil = datFil.substr(0, datFil.length-separator.length);
+            datFil = datFil.substr(0, datFil.length-separator.length); 
         }
         tmp = tmp + datFil + '\n';
     });
