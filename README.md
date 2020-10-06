@@ -64,3 +64,11 @@ Parameters:
         onBeforeDelete: function() {}, //Called before deletion
         onDelete: function() {}, //Called after deletion
         onAdd: function() {}     //Called when added a new row
+		
+# Referemces
+
+Some page explaining the use of bootstable:
+
+* https://medium.com/@diyifang/bootstable-js-editable-table-with-bootstrap-6694f016f1b8
+* https://codepen.io/diyifang/pen/mXdQmB
+* http://ivanovdmitry.com/blog/post/create-editable-tables-with-jquery-and-bootstrap-bootstable
