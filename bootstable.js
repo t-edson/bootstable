@@ -22,12 +22,27 @@ var newColHtml = '<div class="btn-group pull-right">'+
 '<span class="glyphicon glyphicon-remove" > </span>'+
 '</button>'+
   '</div>';
-var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>'; 
+  //Case NOT Bootstrap
+  var newColHtml2 = '<div class="btn-group pull-right">'+
+  '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="butRowEdit(this);">' +
+  '<span class="glyphicon glyphicon-pencil" > ✎ </span>'+
+  '</button>'+
+  '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="butRowDelete(this);">' +
+  '<span class="glyphicon glyphicon-trash" > X </span>'+
+  '</button>'+
+  '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="butRowAcep(this);">' + 
+  '<span class="glyphicon glyphicon-ok" > ✓ </span>'+
+  '</button>'+
+  '<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="butRowCancel(this);">' + 
+  '<span class="glyphicon glyphicon-remove" > → </span>'+
+  '</button>'+
+    '</div>';
   
 $.fn.SetEditable = function (options) {
   var defaults = {
       columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
       $addButton: null,        //Jquery object of "Add" button
+      bootstrap: true,         //Indicates bootstrap is present.
       onEdit: function() {},   //Called after edition
       onBeforeDelete: function() {}, //Called before deletion
       onDelete: function() {}, //Called after deletion
@@ -36,6 +51,11 @@ $.fn.SetEditable = function (options) {
   params = $.extend(defaults, options);
   var $tabedi = this;   //Read reference to the current table.
   $tabedi.find('thead tr').append('<th name="buttons"></th>');  //Add empty column
+  if (params.bootstrap) {
+    var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>'; 
+  } else {
+    var colEdicHtml = '<td name="buttons">'+newColHtml2+'</td>'; 
+  }
   //Add column for buttons to all rows.
   $tabedi.find('tbody tr').append(colEdicHtml);
   //Process "addButton" parameter

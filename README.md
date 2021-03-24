@@ -3,7 +3,7 @@
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7LKYWG9LXNQ9C&lc=ES&item_name=Tito%20Hinostroza&item_number=2153&no_note=0&cn=Dar%20instrucciones%20especiales%20al%20vendedor%3a&no_shipping=2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
 # Bootstable
-Javascript library to make HMTL tables editable, using Bootstrap
+Javascript library to make HMTL tables editable.
 
 ![Bootstable](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/2018/01/Sin-título-13.png "Bootstable")
 
@@ -24,6 +24,7 @@ Edition options includes:
 * Bootstrap
 
 Bootstrap is necessary to format correctly the controls used, and to draw icons.
+It's possible to work without Bootstrap too. In this case style is missing.
 
 ## Requirements
 
@@ -103,6 +104,7 @@ Parameters:
 
       columnsEd: null,         //Index to editable columns. If null, all columns will be editables. Ex.: "1,2,3,4,5"
       $addButton: null,        //Jquery object of "Add" button. OBSOLETE. 
+      bootstrap: true,         //Indicates if library is going to worl with Bootstrap library.
       onEdit: function() {},   //Called after edition
       onBeforeDelete: function() {}, //Called before deletion
       onDelete: function() {}, //Called after deletion

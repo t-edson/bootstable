@@ -9,6 +9,7 @@ initial values for new row.
 edition mode.
 * A new function is created: rowAddNewAndEdit().
 * A new function is created: TableToJson().
+* "bootstrap" parameter is added.
 
 Version 1.2
 ===========
