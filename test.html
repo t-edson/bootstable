@@ -21,9 +21,9 @@
         <table class="table table-borded table-responsive table-striped " id="table-list">
             <thead class="table-dark">
                 <tr>
-                    <td>Name</td>
-                    <td>Gental</td>
-                    <td>eMail</td>
+                    <th>Name</th>
+                    <th>Gental</th>
+                    <th>email</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +52,6 @@
                     <td>Male</td>
                     <td>edd@hotmail.com</td>
                 </tr>
-                <tr>
-                    <td>Daisy</td>
-                    <td>Female</td>
-                    <td>hhdf@gmail.com</td>
-                </tr>
             </tbody>
         </table>
         <button class="btn btn-info" id="add"><span class="glyphicon glyphicon-plus-sign"></span>Add New Members</button>
@@ -67,10 +62,11 @@
 <script src="bootstable.js"></script>
 <script>
 //apply
-$("#table-list").SetEditable({
-      $addButton: $('#add')
-  });
-  
+$("#table-list").SetEditable();
+$('#add').click(function() {
+    rowAddNew('table-list', [1,2,3]);
+});
+
 </script>
 </body>
 
