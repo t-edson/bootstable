@@ -81,7 +81,7 @@ Includes a "New row" button (Prefered):
       $('#mytable').SetEditable();
 
       $('#but_add').click(function() {
-            rowAddNew('table-list');
+            rowAddNew('mytable');
       });
 
 Set a "New row" button to add a row and set initial values:
@@ -89,7 +89,7 @@ Set a "New row" button to add a row and set initial values:
       $('#mytable').SetEditable();
 
       $('#but_add').click(function() {
-            rowAddNew('table-list', [1,2,3]);
+            rowAddNew('mytable', [1,2,3]);
       });
 
 Set a "New row" button to add a row, set initial values and turn to edit mode:
@@ -97,7 +97,7 @@ Set a "New row" button to add a row, set initial values and turn to edit mode:
       $('#mytable').SetEditable();
 
       $('#but_add').click(function() {
-            rowAddNewAndEdit('table-list', [1,2,3]);
+            rowAddNewAndEdit('mytable', [1,2,3]);
       });
 
 Parameters:
