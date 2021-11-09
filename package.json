@@ -1,5 +1,5 @@
 {
-  "name": "bootstable",
+  "name": "@seraphnet/bootstable",
   "version": "1.5.0",
   "description": "Bootstrap Editable Tables, Updated for Version 5 of Bootstrap",
   "main": "bootstable.js",
