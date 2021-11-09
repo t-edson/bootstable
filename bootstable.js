@@ -50,6 +50,8 @@ function SetEditable(element, options) {
     columnsEd: null, //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
     $addButton: null, //Selector for Add Button
     bootstrap: true, //Indicates bootstrap is present.
+    defaultValues: [], // set default values on add
+    addButtonEdit: true, // set fields to editable when add
     onEdit: function () {}, //Called after edition
     onBeforeDelete: function () {}, //Called before deletion
     onDelete: function () {}, //Called after deletion
@@ -66,7 +68,8 @@ function SetEditable(element, options) {
     addButton.setAttribute("class", "btn btn-success");
     addButton.id(params.$addButton);
     addButton.addEventListener("onclick", () => {
-      rowAddNew(element);
+      if (params.addButtonEdit) rowAddNewAndEdit(element, params.defaultValues);
+      else rowAddNew(element);
     });
     const glyph = document.createElement("i");
     glyph.setAttribute("fa fa-plus");
