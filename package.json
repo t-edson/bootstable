@@ -1,9 +1,10 @@
 {
   "name": "seraphnet-bootstable",
-  "version": "1.5.3",
+  "version": "1.5.5",
   "description": "Bootstrap Editable Tables, Updated for Version 5 of Bootstrap",
   "main": "bootstable.js",
   "scripts": {
+    "prepare": "yarn build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "uglifyjs -c -m -o bootstable.min.js --source-map \"filename='bootstable.map.js'\" -- bootstable.js"
   },

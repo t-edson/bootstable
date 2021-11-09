@@ -66,7 +66,7 @@ function SetEditable(element, options) {
   if (params.$addButton) {
     const addButton = document.createElement("button");
     addButton.setAttribute("class", "btn btn-success");
-    addButton.id(params.$addButton);
+    addButton.id = params.$addButton;
     addButton.addEventListener("onclick", () => {
       if (params.addButtonEdit) rowAddNewAndEdit(element, params.defaultValues);
       else rowAddNew(element);
