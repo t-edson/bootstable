@@ -65,14 +65,14 @@ function SetEditable(element, options) {
   addButtonTh.setAttribute("name", "buttons");
   if (params.$addButton) {
     const addButton = document.createElement("button");
-    addButton.setAttribute("class", "btn btn-success");
+    addButton.className = "btn btn-success";
     addButton.id = params.$addButton;
     addButton.addEventListener("onclick", () => {
       if (params.addButtonEdit) rowAddNewAndEdit(element, params.defaultValues);
       else rowAddNew(element);
     });
     const glyph = document.createElement("i");
-    glyph.setAttribute("fa fa-plus");
+    glyph.className = "fa fa-plus";
     addButton.appendChild(glyph);
 
     addButtonTh.appendChild(addButton);
