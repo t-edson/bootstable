@@ -2,6 +2,8 @@
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7LKYWG9LXNQ9C&lc=ES&item_name=Tito%20Hinostroza&item_number=2153&no_note=0&cn=Dar%20instrucciones%20especiales%20al%20vendedor%3a&no_shipping=2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
+### Note from maintainer, I have not changed the above donation link. Please donate to the original author.
+
 # Bootstable
 Javascript library to make HMTL tables editable.
 
@@ -20,11 +22,13 @@ Edition options includes:
 
 ## Dependencies:
 
-* Jquery
 * Bootstrap
+* Font Awesome
 
 Bootstrap is necessary to format correctly the controls used, and to draw icons.
 It's possible to work without Bootstrap too. In this case style is missing.
+
+This library utilizes the free set of glyphs for the buttons.
 
 ## Requirements
 
@@ -47,75 +51,64 @@ It's possible to work without Bootstrap too. In this case style is missing.
 
 2. Bootstable needs the ID of the table to edit, and can only work on a single table. 
 
-      $('.mytable').SetEditable();  //BAD! No class reference allowed.
-      $('table').SetEditable();     //BAD! No several tables allowed.
-
-If several tables need to be editable in a same Web page, it's needed to set each table:
-
-      $('#mytable1').SetEditable();       //GOOD!
-      $('#mytable2').SetEditable();       //GOOD!
-
-LIMITATION: When using several editable tables, events won't work properly.
+      SetEditable("mytable", options)
 
 ## Examples
 
 Sets all the columns of #mytable editable:
 
-      $('#mytable').SetEditable();
+      SetEditable("mytable");
 
 Sets the columns 0 and 1 of #mytable editable:
 
-      $('#mytable').SetEditable({
-                    columnsEd: "0,1" //editable columns 
+      SetEditable("mytable", {
+            columnsEd: "0,1" //editable columns 
       });
 
-Includes a "New row" button (Obsolete):
+Includes a "New row" button, this will add a new button to the table headers:
 
-      $('#mytable').SetEditable({
+      SetEditable("mytable", {
                     columnsEd: "0,1", 
-                    $addButton: $('#but_add')
+                    $addButton: "buttonId"
       });
 
-Includes a "New row" button (Prefered):
-
-      $('#mytable').SetEditable();
-
-      $('#but_add').click(function() {
-            rowAddNew('mytable');
-      });
 
 Set a "New row" button to add a row and set initial values:
 
-      $('#mytable').SetEditable();
-
-      $('#but_add').click(function() {
-            rowAddNew('mytable', [1,2,3]);
-      });
+      SetEditable("mytable", {
+            $addButton: "buttonId",
+            defaultValues: [1,2,3]
+      } );
 
 Set a "New row" button to add a row, set initial values and turn to edit mode:
 
-      $('#mytable').SetEditable();
-
-      $('#but_add').click(function() {
-            rowAddNewAndEdit('mytable', [1,2,3]);
-      });
+      SetEditable("mytable", {
+            $addButton: "buttonId",
+            defaultValues: [1,2,3],
+            addButtonEdit: true // Forces bootstable to edit the new row immediately.
+      } );
 
 Parameters:
 
-      columnsEd: null,         //Index to editable columns. If null, all columns will be editables. Ex.: "1,2,3,4,5"
-      $addButton: null,        //Jquery object of "Add" button. OBSOLETE. 
-      bootstrap: true,         //Indicates if library is going to worl with Bootstrap library.
-      onEdit: function() {},   //Called after edition
-      onBeforeDelete: function() {}, //Called before deletion
-      onDelete: function() {}, //Called after deletion
-      onAdd: function() {}     //Called when added a new row
+      // Properties
+      columnsEd: Array(),      // Default: null  -- Index to editable columns. If null, all columns will be editables. Ex.: [ 1,2,3,4,5 ]
+      $addButton: string,      // Default: null  -- ID of "Add" button. 
+      bootstrap: boolean,         // Default: true  -- Indicates if library is going to worl with Bootstrap library.
+      defaultValues: Array(),  // Default: null  -- Set default values, must match the number of editable columns
+      addButtonEdit: boolean,  // Default: false -- Should bootstable edit the rows after adding?
+
+      // Callbacks
+      onEdit: (rowElement) => {},         // Called after clicking edit button
+      onBeforeDelete: (rowElement) => {}, // Called just before deletion
+      onDelete: (rowElement) => {},       // Called after deletion button, but after onBeforeDelete. If onBeforeDelete returns false, bypass.
+      onAdd: (rowElement) => {}           // Called when new row is added to table
 
 # Utilities
 
 There are two functions, included in the library, to facilitate the export of the table:
 
-* function TableToCSV(tabId, separator)
-* function TableToJson(tabId)
+* function TableToCSV(tableId, separator)
+* function TableToJson(tableId)
 
 These functions return a string in the appropriate format (CSV or JSON) from any HTML table.
 
