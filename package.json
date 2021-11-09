@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "yarn build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "uglifyjs -c -m -o bootstable.min.js --source-map \"filename='bootstable.map.js'\" -- bootstable.js"
+    "build": "uglifyjs -c -m -o bootstable.min.js --source-map \"filename='bootstable.min.js.map'\" -- bootstable.js"
   },
   "repository": {
     "type": "git",
