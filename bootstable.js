@@ -101,6 +101,7 @@ function IterarCamposEdit($cols, action) {
   var n = 0;
   for (const col of $cols) {
     n++;
+    if (col.style.display == "none") return; // Ignore Hidden Columns
     if (col.getAttribute("name") == "buttons") return; //Exclude buttons column
     if (!IsEditable(n - 1)) return; //It's not editable
     action(col);
