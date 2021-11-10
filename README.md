@@ -116,58 +116,58 @@ These functions return a string in the appropriate format (CSV or JSON) from any
 
 In order to self-stylize buttons, pass a replacement object for the button(s) you wish to modify:
 
-   const buttons = {
-      bEdit: {
-        className: "btn btn-sm btn-primary",
-        icon: "fa fa-pencil",
-        display: "block",
-        onclick: (but) => {
-          var target = but.target;
-          if (target.tagName == "I") {
-            target = but.target.parentNode;
-          }
-          this.butRowEdit(target);
-        },
-      },
-      bElim: {
-        className: "btn btn-sm btn-danger",
-        icon: "fa fa-trash",
-        display: "block",
-        onclick: (but) => {
-          var target = but.target;
-          if (target.tagName == "I") {
-            target = but.target.parentNode;
-          }
-          this.butRowDelete(target);
-        },
-      },
-      bAcep: {
-        className: "btn btn-sm btn-success",
-        icon: "fa fa-check",
-        display: "none",
-        onclick: (but) => {
-          var target = but.target;
-          if (target.tagName == "I") {
-            target = but.target.parentNode;
-          }
-          this.butRowAcep(target);
-        },
-      },
-      bCanc: {
-        className: "btn btn-sm btn-warning",
-        icon: "fa fa-remove",
-        display: "none",
-        onclick: (but) => {
-          var target = but.target;
-          if (target.tagName == "I") {
-            target = but.target.parentNode;
-          }
-          this.butRowCancel(target);
-        },
-      },
-    };
+      const buttons = {
+         bEdit: {
+           className: "btn btn-sm btn-primary",
+           icon: "fa fa-pencil",
+           display: "block",
+           onclick: (but) => {
+             var target = but.target;
+             if (target.tagName == "I") {
+               target = but.target.parentNode;
+             }
+             this.butRowEdit(target);
+           },
+         },
+         bElim: {
+           className: "btn btn-sm btn-danger",
+           icon: "fa fa-trash",
+           display: "block",
+           onclick: (but) => {
+             var target = but.target;
+             if (target.tagName == "I") {
+               target = but.target.parentNode;
+             }
+             this.butRowDelete(target);
+           },
+         },
+         bAcep: {
+           className: "btn btn-sm btn-success",
+           icon: "fa fa-check",
+           display: "none",
+           onclick: (but) => {
+             var target = but.target;
+             if (target.tagName == "I") {
+               target = but.target.parentNode;
+             }
+             this.butRowAcep(target);
+           },
+         },
+         bCanc: {
+           className: "btn btn-sm btn-warning",
+           icon: "fa fa-remove",
+           display: "none",
+           onclick: (but) => {
+             var target = but.target;
+             if (target.tagName == "I") {
+               target = but.target.parentNode;
+             }
+             this.butRowCancel(target);
+           },
+         },
+      };
 
-# References
+# References (Obsolete, needs updating)
 
 Some page explaining the use of bootstable:
 
