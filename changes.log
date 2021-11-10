@@ -1,3 +1,6 @@
+Version 1.5.14 
+==============
+* Converted to class. 
 Version 1.5.0 (November 9, 2021)
 ================================
 * Removed jQuery dependency and switched to vanilla js

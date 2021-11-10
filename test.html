@@ -51,14 +51,24 @@
                 </tbody>
             </table>
         </div>
-
+        <button class="btn btn-secondary" id="exportcsv">Export CSV</button>
+        <button class="btn btn-secondary" id="exportjson">Export JSON</button>
         <br>
 
         <script src="bootstable.js"></script>
         <script>
             //apply
-            SetEditable("table-list", {$addButton: "but-add"});
+            const bstable = new bootstable("table-list", {$addButton: "but-add"});
+            document
+                .getElementById('exportcsv')
+                .addEventListener("click", () => {
+                    console.log(bstable.TableToCSV("table-list", ",", true, "sample.csv"))
+                });
+            document
+                .getElementById('exportjson')
+                .addEventListener("click", () => {
+                    bstable.TableToJson("table-list", true, "sample.json")
+                });
         </script>
     </body>
-
 </html>

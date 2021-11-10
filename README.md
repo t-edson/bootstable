@@ -51,23 +51,23 @@ This library utilizes the free set of glyphs for the buttons.
 
 2. Bootstable needs the ID of the table to edit, and can only work on a single table. 
 
-      SetEditable("mytable", options)
+      const bstable = new bootstable("mytable", options)
 
 ## Examples
 
 Sets all the columns of #mytable editable:
 
-      SetEditable("mytable");
+      const bstable = new bootstable("mytable");
 
 Sets the columns 0 and 1 of #mytable editable:
 
-      SetEditable("mytable", {
+      const bstable = new bootstable("mytable", {
             columnsEd: "0,1" //editable columns 
       });
 
 Includes a "New row" button, this will add a new button to the table headers:
 
-      SetEditable("mytable", {
+      const bstable = new bootstable("mytable", {
                     columnsEd: "0,1", 
                     $addButton: "buttonId"
       });
@@ -75,14 +75,14 @@ Includes a "New row" button, this will add a new button to the table headers:
 
 Set a "New row" button to add a row and set initial values:
 
-      SetEditable("mytable", {
+      const bstable = new bootstable("mytable", {
             $addButton: "buttonId",
             defaultValues: [1,2,3]
       } );
 
 Set a "New row" button to add a row, set initial values and turn to edit mode:
 
-      SetEditable("mytable", {
+      const bstable = new bootstable("mytable", {
             $addButton: "buttonId",
             defaultValues: [1,2,3],
             addButtonEdit: true // Forces bootstable to edit the new row immediately.
@@ -91,11 +91,11 @@ Set a "New row" button to add a row, set initial values and turn to edit mode:
 Parameters:
 
       // Properties
-      columnsEd: Array(),      // Default: null  -- Index to editable columns. If null, all columns will be editable. Ex.: [ 1,2,3,4,5 ]
+      columnsEd: Array(),      // Default: null  -- Index to editable columns. If null, all columns will be editable. Ex.: [ 0,1,2,3,4,5 ]
       $addButton: string,      // Default: null  -- ID of "Add" button. 
-      bootstrap: boolean,         // Default: true  -- Indicates if library is going to worl with Bootstrap library.
       defaultValues: Array(),  // Default: null  -- Set default values, must match the number of editable columns
       addButtonEdit: boolean,  // Default: false -- Should bootstable edit the rows after adding?
+      buttons: Object(), // Overide default buttons
 
       // Callbacks
       onEdit: (rowElement) => {},         // Called after clicking edit button
@@ -107,10 +107,65 @@ Parameters:
 
 There are two functions, included in the library, to facilitate the export of the table:
 
-* function TableToCSV(tableId, separator)
-* function TableToJson(tableId)
+* bstable.TableToCSV(tableId, separator, downloadBool, filenameStr)
+* bstable.TableToJson(tableId, downloadBool, filenameStr)
 
 These functions return a string in the appropriate format (CSV or JSON) from any HTML table.
+
+# Default Buttons
+
+In order to self-stylize buttons, pass a replacement object for the button(s) you wish to modify:
+
+   const buttons = {
+      bEdit: {
+        className: "btn btn-sm btn-primary",
+        icon: "fa fa-pencil",
+        display: "block",
+        onclick: (but) => {
+          var target = but.target;
+          if (target.tagName == "I") {
+            target = but.target.parentNode;
+          }
+          this.butRowEdit(target);
+        },
+      },
+      bElim: {
+        className: "btn btn-sm btn-danger",
+        icon: "fa fa-trash",
+        display: "block",
+        onclick: (but) => {
+          var target = but.target;
+          if (target.tagName == "I") {
+            target = but.target.parentNode;
+          }
+          this.butRowDelete(target);
+        },
+      },
+      bAcep: {
+        className: "btn btn-sm btn-success",
+        icon: "fa fa-check",
+        display: "none",
+        onclick: (but) => {
+          var target = but.target;
+          if (target.tagName == "I") {
+            target = but.target.parentNode;
+          }
+          this.butRowAcep(target);
+        },
+      },
+      bCanc: {
+        className: "btn btn-sm btn-warning",
+        icon: "fa fa-remove",
+        display: "none",
+        onclick: (but) => {
+          var target = but.target;
+          if (target.tagName == "I") {
+            target = but.target.parentNode;
+          }
+          this.butRowCancel(target);
+        },
+      },
+    };
 
 # References
 
