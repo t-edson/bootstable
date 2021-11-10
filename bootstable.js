@@ -10,7 +10,7 @@ Bootstable
 class bootstable {
   constructor(/** @type string */ element, /** @type object */ options) {
     var defaults = {
-      columnsEd: null, //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
+      columnsEd: [], //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
       $addButton: null, //Selector for Add Button
       defaultValues: [], // set default values on add
       addButtonEdit: true, // set fields to editable when add
@@ -97,7 +97,7 @@ class bootstable {
 
   IsEditable(/** @type number */ idx) {
     //Indicates if the passed column is set to be editable
-    if (this.colsEdi == null) {
+    if (this.colsEdi.length == 0) {
       //no se definió
       return true; //todas son editable
     } else {
