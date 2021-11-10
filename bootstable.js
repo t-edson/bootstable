@@ -115,9 +115,7 @@ function IsEditable(idx) {
     return true; //todas son editable
   } else {
     //hay filtro de campos
-    for (var i = 0; i < colsEdi.length; i++) {
-      if (idx == colsEdi[i]) return true;
-    }
+    if (colsEdi.includes(idx)) return true;
     return false; //no se encontró
   }
 }

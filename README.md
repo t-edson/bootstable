@@ -91,7 +91,7 @@ Set a "New row" button to add a row, set initial values and turn to edit mode:
 Parameters:
 
       // Properties
-      columnsEd: Array(),      // Default: null  -- Index to editable columns. If null, all columns will be editables. Ex.: [ 1,2,3,4,5 ]
+      columnsEd: Array(),      // Default: null  -- Index to editable columns. If null, all columns will be editable. Ex.: [ 1,2,3,4,5 ]
       $addButton: string,      // Default: null  -- ID of "Add" button. 
       bootstrap: boolean,         // Default: true  -- Indicates if library is going to worl with Bootstrap library.
       defaultValues: Array(),  // Default: null  -- Set default values, must match the number of editable columns
