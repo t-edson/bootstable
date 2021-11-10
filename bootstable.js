@@ -60,14 +60,13 @@ function SetEditable(element, options) {
 
   params = _extend(defaults, options);
 
-  var $tabedi = element; //Read reference to the current table.
   const addButtonTh = document.createElement("th");
   addButtonTh.setAttribute("name", "buttons");
   if (params.$addButton) {
     const addButton = document.createElement("button");
-    addButton.className = "btn btn-success";
+    addButton.className = "btn btn-success float-end";
     addButton.id = params.$addButton;
-    addButton.addEventListener("onclick", () => {
+    addButton.addEventListener("click", () => {
       if (params.addButtonEdit) rowAddNewAndEdit(element, params.defaultValues);
       else rowAddNew(element);
     });
@@ -85,8 +84,9 @@ function SetEditable(element, options) {
   //Add column for buttons to all rows.
   const rows = document.querySelectorAll(`#${element} tbody tr`);
 
-  for (const row of rows) {
-    row.appendChild(colEdicHtml);
+  for (var i = 0; i < rows.length; i++) {
+    console.log(rows[i]);
+    rows[i].appendChild(colEdicHtml.cloneNode(true));
   }
 
   //Process "columnsEd" parameter
@@ -130,7 +130,7 @@ function ModoEdicion($row) {
 }
 //Set buttons state
 function SetButtonsNormal(but) {
-  const children = but.childNodes();
+  const children = but.parentNode.childNodes;
   for (var child of children) {
     switch (child.id) {
       case "bAcep":
@@ -147,11 +147,11 @@ function SetButtonsNormal(but) {
         break;
     }
   }
-  but.parentNode.parentNode.setAttribute("id", "");
+  but.parentNode.parentNode.parentNode.setAttribute("id", "");
 }
 
 function SetButtonsEdit(but) {
-  const children = but.childNodes();
+  const children = but.parentNode.childNodes;
   for (var child of children) {
     switch (child.id) {
       case "bAcep":
@@ -168,18 +168,18 @@ function SetButtonsEdit(but) {
         break;
     }
   }
-  but.parentNode.parentNode.setAttribute("id", "editing");
+  but.parentNode.parentNode.parentNode.setAttribute("id", "editing");
 }
 //Events functions
 function butRowAcep(but) {
   //Acepta los cambios de la edición
-  var $row = but.parentNode.parentNode; //accede a la fila
+  var $row = but.parentNode.parentNode.parentNode; //accede a la fila
   var $cols = $row.querySelectorAll("td"); //lee campos
   if (!ModoEdicion($row)) return; //Ya está en edición
   //Está en edición. Hay que finalizar la edición
   IterarCamposEdit($cols, function ($td) {
     //itera por la columnas
-    var cont = $td.value; //lee contenido del input
+    var cont = $td.querySelector("input").value; //lee contenido del input
     $td.innerHTML = cont; //fija contenido y elimina controles
   });
   SetButtonsNormal(but);
@@ -187,27 +187,27 @@ function butRowAcep(but) {
 }
 function butRowCancel(but) {
   //Rechaza los cambios de la edición
-  var $row = but.parentNode.parentNode; //accede a la fila
+  var $row = but.parentNode.parentNode.parentNode; //accede a la fila
   var $cols = $row.querySelectorAll("td"); //lee campos
   if (!ModoEdicion($row)) return; //Ya está en edición
   //Está en edición. Hay que finalizar la edición
   IterarCamposEdit($cols, function ($td) {
     //itera por la columnas
-    var cont = ($td.querySelectorAll("div").innerHTML = ""); //lee contenido del div
-    $td.html(cont); //fija contenido y elimina controles
+    var cont = $td.querySelector("div").innerHTML; //lee contenido del div
+    $td.innerHTML = cont; //fija contenido y elimina controles
   });
   SetButtonsNormal(but);
 }
 function butRowEdit(but) {
   //Start the edition mode for a row.
-  var $row = but.parentNode.parentNode; //accede a la fila
+  var $row = but.parentNode.parentNode.parentNode; //accede a la fila
   var $cols = $row.querySelectorAll("td"); //lee campos
   if (ModoEdicion($row)) return; //Ya está en edición
   //Pone en modo de edición
   var focused = false; //flag
   IterarCamposEdit($cols, function ($td) {
     //itera por la columnas
-    var cont = ($td.innerHTML = ""); //lee contenido
+    var cont = $td.innerHTML; //lee contenido
     //Save previous content in a hide <div>
     var div = '<div style="display: none;">' + cont + "</div>";
     var input = '<input class="form-control input-sm"  value="' + cont + '">';
@@ -222,7 +222,7 @@ function butRowEdit(but) {
 }
 function butRowDelete(but) {
   //Elimina la fila actual
-  var $row = but.parentNode.parentNode; //accede a la fila
+  var $row = but.parentNode.parentNode.parentNode; //accede a la fila
   params.onBeforeDelete($row);
   $row.remove();
   params.onDelete();
@@ -235,7 +235,7 @@ function rowAddNew(tabId, initValues = []) {
     initValues  -> Optional. Array containing the initial value for the 
                    new row.
   */
-  var $tab_en_edic = document.getElementByID(tabId); //Table to edit
+  var $tab_en_edic = document.getElementById(tabId); //Table to edit
 
   var $row = $tab_en_edic.querySelectorAll("thead tr")[0]; //encabezado
   var $cols = $row.querySelectorAll("th"); //lee campos
@@ -268,7 +268,7 @@ function rowAddNewAndEdit(tabId, initValues = []) {
   var $lastRow = document
     .getElementById(tabId)
     .querySelectorAll("tbody")[0].lastChild;
-  butRowEdit($lastRow.getElementByID("bEdit")); //Pass a button reference
+  butRowEdit($lastRow.querySelector("#bEdit")); //Pass a button reference
 }
 function TableToCSV(tabId, separator) {
   //Convert table to CSV
@@ -307,7 +307,7 @@ function TableToCSV(tabId, separator) {
 
 function TableToJson(tabId) {
   var obj = [];
-  const table = document.getElementByID(tabId);
+  const table = document.getElementById(tabId);
   const headersHtml = table.querySelectorAll("thead tr th");
   var headers = [];
 
