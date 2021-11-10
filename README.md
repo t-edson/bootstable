@@ -2,33 +2,35 @@
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7LKYWG9LXNQ9C&lc=ES&item_name=Tito%20Hinostroza&item_number=2153&no_note=0&cn=Dar%20instrucciones%20especiales%20al%20vendedor%3a&no_shipping=2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
-### Note from maintainer, I have not changed the above donation link. Please donate to the original author.
+#### Note from maintainer, I have not changed the above donation link. Please donate to the original author.
 
 # Bootstable
-Javascript library to make HMTL tables editable.
+Tiny class to make bootstrap tables editable.
 
-![Bootstable](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/2018/01/Sin-título-13.png "Bootstable")
+![Bootstable](https://raw.githubusercontent.com/SeraphNet/bootstable-bootstrap5/1.5/bootstable.png "Bootstable")
 
-"Bootstable" is a javascript library (plug-in), that lets convert a HTML static table to a editable table. 
-A table is made editable, including several buttons to perform the edition actions.
+"Bootstable" is a javascript class, that converts HTML static tables into an editable table.
 
-No database connection is included. The library was designed to work offline, when editing.
+No database connection is included. The library was designed to work offline, when editing. 
 
-Edition options includes:
+In order to save to a database, use the onEditSave hooks to call an API to save the data.
 
-* Edit fields.
-* Remove rows.
-* Add rows.
+Editing options includes:
+
+* Edit Row
+* Remove Row
+* Add Row
 
 ## Dependencies:
 
 * Bootstrap
-* Font Awesome
+* Bootstrap Icons
 
 Bootstrap is necessary to format correctly the controls used, and to draw icons.
-It's possible to work without Bootstrap too. In this case style is missing.
 
-This library utilizes the free set of glyphs for the buttons.
+This will work without Bootsrap, however the structures are heavily reliant on CSS classes provided by Bootstrap 5+ and display issues will result. To adjust, modify your CSS/SASS to handle the classes presented.
+
+Bootstrap Icons is used for glyphs in the buttons.
 
 ## Requirements
 
@@ -52,6 +54,8 @@ This library utilizes the free set of glyphs for the buttons.
 2. Bootstable needs the ID of the table to edit, and can only work on a single table. 
 
       const bstable = new bootstable("mytable", options)
+
+3. To edit multiple tables on a single page, instantiate the class for each table.
 
 ## Examples
 
@@ -96,6 +100,8 @@ Parameters:
       defaultValues: Array(),  // Default: null  -- Set default values, must match the number of editable columns
       addButtonEdit: boolean,  // Default: false -- Should bootstable edit the rows after adding?
       buttons: Object(), // Overide default buttons
+      exportCsvButton: boolean, Default: false -- add an export to CSV button
+      exportJsonButton: boolean, Default: false -- add an export to JSON button
 
       // Callbacks
       onEdit: (rowElement) => {},         // Called after clicking edit button
@@ -110,7 +116,7 @@ There are two functions, included in the library, to facilitate the export of th
 * bstable.TableToCSV(tableId, separator, downloadBool, filenameStr)
 * bstable.TableToJson(tableId, downloadBool, filenameStr)
 
-These functions return a string in the appropriate format (CSV or JSON) from any HTML table.
+These functions return a string of the data, but can be set to create a file download by setting downloadBool to true and supplying a filename for download.
 
 # Default Buttons
 

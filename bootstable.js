@@ -12,10 +12,12 @@ class bootstable {
     var defaults = {
       columnsEd: [], //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
       $addButton: null, //Selector for Add Button
+      exportCsvButton: false, // Add an export to CSV button
+      exportJsonButton: false, // Add an export to JSON button
       defaultValues: [], // set default values on add
       addButtonEdit: true, // set fields to editable when add
       buttons: null,
-      onEdit: function () {}, //Called after edition
+      onEditSave: function () {}, //Called after edition
       onBeforeDelete: function () {}, //Called before deletion
       onDelete: function () {}, //Called after deletion
       onAdd: function () {}, //Called when added a new row
@@ -34,6 +36,33 @@ class bootstable {
   SetEditable(/** @type string */ element) {
     const addButtonTh = document.createElement("th");
     addButtonTh.setAttribute("name", "buttons");
+    if (this.params.exportCsvButton) {
+      const csvButton = document.createElement("button");
+      csvButton.className = "btn btn-secondary float-end";
+      csvButton.id = "btnCsv";
+      csvButton.addEventListener("click", () => {
+        this.TableToCSV(element, ",", true, `${element}.export.csv`);
+      });
+      csvButton.setAttribute("text", "Export to CSV");
+      const glyph = document.createElement("i");
+      glyph.className = "bi bi-file-spreadsheet";
+      csvButton.appendChild(glyph);
+      addButtonTh.appendChild(csvButton);
+    }
+    if (this.params.exportCsvButton) {
+      const csvButton = document.createElement("button");
+      csvButton.className = "btn btn-secondary float-end";
+      csvButton.id = "btnJson";
+      csvButton.addEventListener("click", () => {
+        this.TableToJSON(element, true, `${element}.export.csv`);
+      });
+      csvButton.setAttribute("text", "Export to JSON");
+      const glyph = document.createElement("i");
+      glyph.className = "bi bi-file-code";
+      csvButton.appendChild(glyph);
+      addButtonTh.appendChild(csvButton);
+    }
+
     if (this.params.$addButton) {
       const addButton = document.createElement("button");
       addButton.className = "btn btn-success float-end";
@@ -43,12 +72,14 @@ class bootstable {
           this.rowAddNewAndEdit(element, this.params.defaultValues);
         else this.rowAddNew(element);
       });
+      addButton.setAttribute("text", "Add New Row");
       const glyph = document.createElement("i");
-      glyph.className = "fa fa-plus";
+      glyph.className = "bi bi-plus";
       addButton.appendChild(glyph);
 
       addButtonTh.appendChild(addButton);
     }
+
     document
       .querySelectorAll(`#${element} thead tr`)[0]
       .appendChild(addButtonTh);
@@ -166,7 +197,7 @@ class bootstable {
       $td.innerHTML = cont; //fija contenido y elimina controles
     });
     this.SetButtonsNormal(but);
-    this.params.onEdit($row);
+    this.params.onEditSave($row);
   }
   butRowCancel(/** @type HTMLElement */ but) {
     //Rechaza los cambios de la edición
@@ -348,7 +379,7 @@ class bootstable {
     const buttons = {
       bEdit: {
         className: "btn btn-sm btn-primary",
-        icon: "fa fa-pencil",
+        icon: "bi bi-pencil",
         display: "block",
         onclick: (but) => {
           var target = but.target;
@@ -360,7 +391,7 @@ class bootstable {
       },
       bElim: {
         className: "btn btn-sm btn-danger",
-        icon: "fa fa-trash",
+        icon: "bi bi-trash",
         display: "block",
         onclick: (but) => {
           var target = but.target;
@@ -372,7 +403,7 @@ class bootstable {
       },
       bAcep: {
         className: "btn btn-sm btn-success",
-        icon: "fa fa-check",
+        icon: "bi bi-check",
         display: "none",
         onclick: (but) => {
           var target = but.target;
@@ -384,7 +415,7 @@ class bootstable {
       },
       bCanc: {
         className: "btn btn-sm btn-warning",
-        icon: "fa fa-remove",
+        icon: "bi bi-x-circle",
         display: "none",
         onclick: (but) => {
           var target = but.target;
