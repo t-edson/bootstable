@@ -214,12 +214,9 @@ class bootstable {
     this.SetButtonsNormal(but);
   }
   butRowEdit(/** @type HTMLElement */ but) {
-    console.log(but);
     //Start the edition mode for a row.
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
-    console.log($row);
     var $cols = $row.querySelectorAll("td"); //lee campos
-    console.log($cols);
     if (this.ModoEdicion($row)) return; //Ya está en edición
     //Pone en modo de edición
     var focused = false; //flag
@@ -272,8 +269,13 @@ class bootstable {
     var tr = document.createElement("tr");
 
     for (const col of $cols) {
-      if (col.style.display == "none") continue;
-      if (col.getAttribute("name") == "buttons") {
+      if (col.style.display == "none") {
+        const td = document.createElement("td");
+        td.style.display = "none";
+        td.setAttribute("role", col.getAttribute("role"));
+        tr.appendChild(td);
+      }
+      else if (col.getAttribute("name") == "buttons") {
         //Es columna de botones
         tr.appendChild(this.colEdicHtml);
       } else {
@@ -289,7 +291,7 @@ class bootstable {
       i++;
     }
     $tab_en_edic.querySelectorAll("tbody")[0].appendChild(tr);
-    this.params.onAdd();
+    this.params.onAdd(tr);
   }
   rowAddNewAndEdit(
     /** @type string */ tabId,

@@ -50,6 +50,22 @@ Bootstrap Icons is used for glyphs in the buttons.
       </tbody>
 </table>
 ```
+You can also hide columns and set a "role" for that column. In this case you can maintain an "ID" column for interacting with a database.
+
+```
+<table id="mytable">
+  <thead>
+    <tr>
+      <th style="display: none" role="someid"></th> <th></th> <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="display: none" role="someid"></td> <td></td> <td></td>
+    </tr>
+  </tbody>
+</table>
+```
 
 2. Bootstable needs the ID of the table to edit, and can only work on a single table. 
 
