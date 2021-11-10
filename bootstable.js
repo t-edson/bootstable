@@ -17,6 +17,7 @@ class bootstable {
       defaultValues: [], // set default values on add
       addButtonEdit: true, // set fields to editable when add
       buttons: null,
+      customInputs: [], // Add in custom form fields
       onEditSave: function () {}, //Called after edition
       onBeforeDelete: function () {}, //Called before deletion
       onDelete: function () {}, //Called after deletion
@@ -35,10 +36,12 @@ class bootstable {
 
   SetEditable(/** @type string */ element) {
     const addButtonTh = document.createElement("th");
+    addButtonTh.style.whiteSpace = "nowrap";
+    addButtonTh.style.width = "6.3vw";
     addButtonTh.setAttribute("name", "buttons");
     if (this.params.exportCsvButton) {
       const csvButton = document.createElement("button");
-      csvButton.className = "btn btn-secondary float-end";
+      csvButton.className = "btn btn-secondary btn-sm float-end";
       csvButton.id = "btnCsv";
       csvButton.addEventListener("click", () => {
         this.TableToCSV(element, ",", true, `${element}.export.csv`);
@@ -51,7 +54,7 @@ class bootstable {
     }
     if (this.params.exportCsvButton) {
       const csvButton = document.createElement("button");
-      csvButton.className = "btn btn-secondary float-end";
+      csvButton.className = "btn btn-secondary btn-sm float-end";
       csvButton.id = "btnJson";
       csvButton.addEventListener("click", () => {
         this.TableToJSON(element, true, `${element}.export.csv`);
@@ -65,7 +68,7 @@ class bootstable {
 
     if (this.params.$addButton) {
       const addButton = document.createElement("button");
-      addButton.className = "btn btn-success float-end";
+      addButton.className = "btn btn-success btn-sm float-end";
       addButton.id = this.params.$addButton;
       addButton.addEventListener("click", () => {
         if (this.params.addButtonEdit)
@@ -118,7 +121,6 @@ class bootstable {
     //Iterate through editable fields in a row
     var n = -1;
     for (const col of $cols) {
-      console.log(col, n);
       n++;
       if (col.style.display == "none") continue; // Ignore Hidden Columns
       if (col.getAttribute("name") == "buttons") continue; //Exclude buttons column
@@ -129,7 +131,6 @@ class bootstable {
 
   IsEditable(/** @type number */ idx) {
     //Indicates if the passed column is set to be editable
-    console.log(this.colsEdi, idx);
     if (this.colsEdi.length == 0) return true;
     return this.colsEdi.includes(idx);
   }
@@ -188,7 +189,6 @@ class bootstable {
     //Acepta los cambios de la edición
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
     var $cols = $row.querySelectorAll("td"); //lee campos
-    console.log($cols.length);
     if (!this.ModoEdicion($row)) return; //Ya está en edición
     //Está en edición. Hay que finalizar la edición
     this.IterarCamposEdit($cols, function (boots, $td, index) {
@@ -203,7 +203,6 @@ class bootstable {
     //Rechaza los cambios de la edición
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
     var $cols = $row.querySelectorAll("td"); //lee campos
-    console.log($cols.length);
     if (!this.ModoEdicion($row)) return; //Ya está en edición
     //Está en edición. Hay que finalizar la edición
     this.IterarCamposEdit($cols, function (boots, $td, index) {
@@ -232,10 +231,20 @@ class bootstable {
       div.appendChild(divText);
 
       $td.appendChild(div);
-      var input = document.createElement("input");
-      input.className = "form-control form-control-sm";
-      input.value = cont;
-      input.setAttribute("name", boots.headers[index]);
+      var input;
+      if (boots.customInputs && boots.customInputs.length > 0) {
+        input = boots._customInput(
+          boots,
+          boots.customInputs[index],
+          cont,
+          index
+        );
+      } else {
+        input = document.createElement("input");
+        input.className = "form-control form-control-sm";
+        input.value = cont;
+        input.setAttribute("name", boots.headers[index]);
+      }
       $td.appendChild(input);
       //Set focus to first column
       if (!focused) {
@@ -274,8 +283,7 @@ class bootstable {
         td.style.display = "none";
         td.setAttribute("role", col.getAttribute("role"));
         tr.appendChild(td);
-      }
-      else if (col.getAttribute("name") == "buttons") {
+      } else if (col.getAttribute("name") == "buttons") {
         //Es columna de botones
         tr.appendChild(this.colEdicHtml);
       } else {
@@ -475,5 +483,21 @@ class bootstable {
       headers.push(head.innerHTML);
     }
     return headers;
+  }
+
+  _customInput(
+    /** @type object */ boots,
+    /** @type object */ inputObj,
+    /** @type string */ value = null,
+    /** @type number */ index
+  ) {
+    const input = document.createElement(inputObj.element);
+    if (input.element === "input") input.setAttribute("type", inputObj.type);
+    input.className = inputObj.className;
+    input.setAttribute("name", inputObj.name);
+    if (value) input.value = value;
+    else if (boots.defaultValues.length > 0)
+      input.value = boots.defaultValues[index];
+    return input;
   }
 }
