@@ -1,6 +1,6 @@
 {
   "name": "seraphnet-bootstable",
-  "version": "1.5.14",
+  "version": "1.5.16",
   "description": "Bootstrap Editable Tables, Updated for Version 5 of Bootstrap",
   "main": "bootstable.js",
   "scripts": {

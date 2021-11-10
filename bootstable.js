@@ -179,9 +179,7 @@ class bootstable {
     //Está en edición. Hay que finalizar la edición
     this.IterarCamposEdit($cols, function (boots, $td, index) {
       //itera por la columnas
-      console.log($td);
       var cont = $td.querySelector("div").innerHTML; //lee contenido del div
-      console.log(cont);
       $td.innerHTML = cont; //fija contenido y elimina controles
     });
     this.SetButtonsNormal(but);
