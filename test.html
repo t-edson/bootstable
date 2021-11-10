@@ -58,7 +58,10 @@
         <script src="bootstable.js"></script>
         <script>
             //apply
-            const bstable = new bootstable("table-list", {$addButton: "but-add"});
+            const bstable = new bootstable("table-list", {
+                $addButton: "but-add",
+                columnsEd: [1, 2]
+            });
             document
                 .getElementById('exportcsv')
                 .addEventListener("click", () => {

@@ -85,26 +85,22 @@ class bootstable {
    */
   IterarCamposEdit(/** @type array */ $cols, /** @type function */ action) {
     //Iterate through editable fields in a row
-    var n = 0;
+    var n = -1;
     for (const col of $cols) {
+      console.log(col, n);
       n++;
-      if (col.style.display == "none") return; // Ignore Hidden Columns
-      if (col.getAttribute("name") == "buttons") return; //Exclude buttons column
-      if (!this.IsEditable(n - 1)) return; //It's not editable
-      action(this, col, n - 1);
+      if (col.style.display == "none") continue; // Ignore Hidden Columns
+      if (col.getAttribute("name") == "buttons") continue; //Exclude buttons column
+      if (!this.IsEditable(n)) continue; //It's not editable
+      action(this, col, n);
     }
   }
 
   IsEditable(/** @type number */ idx) {
     //Indicates if the passed column is set to be editable
-    if (this.colsEdi.length == 0) {
-      //no se definió
-      return true; //todas son editable
-    } else {
-      //hay filtro de campos
-      if (this.colsEdi.includes(idx)) return true;
-      return false; //no se encontró
-    }
+    console.log(this.colsEdi, idx);
+    if (this.colsEdi.length == 0) return true;
+    return this.colsEdi.includes(idx);
   }
 
   ModoEdicion(/** @type array */ $row) {
@@ -161,6 +157,7 @@ class bootstable {
     //Acepta los cambios de la edición
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
     var $cols = $row.querySelectorAll("td"); //lee campos
+    console.log($cols.length);
     if (!this.ModoEdicion($row)) return; //Ya está en edición
     //Está en edición. Hay que finalizar la edición
     this.IterarCamposEdit($cols, function (boots, $td, index) {
@@ -175,6 +172,7 @@ class bootstable {
     //Rechaza los cambios de la edición
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
     var $cols = $row.querySelectorAll("td"); //lee campos
+    console.log($cols.length);
     if (!this.ModoEdicion($row)) return; //Ya está en edición
     //Está en edición. Hay que finalizar la edición
     this.IterarCamposEdit($cols, function (boots, $td, index) {
@@ -185,9 +183,12 @@ class bootstable {
     this.SetButtonsNormal(but);
   }
   butRowEdit(/** @type HTMLElement */ but) {
+    console.log(but);
     //Start the edition mode for a row.
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
+    console.log($row);
     var $cols = $row.querySelectorAll("td"); //lee campos
+    console.log($cols);
     if (this.ModoEdicion($row)) return; //Ya está en edición
     //Pone en modo de edición
     var focused = false; //flag
@@ -240,6 +241,7 @@ class bootstable {
     var tr = document.createElement("tr");
 
     for (const col of $cols) {
+      if (col.style.display == "none") continue;
       if (col.getAttribute("name") == "buttons") {
         //Es columna de botones
         tr.appendChild(this.colEdicHtml);
