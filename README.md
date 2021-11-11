@@ -3,6 +3,8 @@
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7LKYWG9LXNQ9C&lc=ES&item_name=Tito%20Hinostroza&item_number=2153&no_note=0&cn=Dar%20instrucciones%20especiales%20al%20vendedor%3a&no_shipping=2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
 #### Note from maintainer, I have not changed the above donation link. Please donate to the original author.
+# Release Status
+This is the first "stable" version. Previous versions had an API that was in flux. We're now in the feature release phase of development.
 
 # Bootstable
 Tiny class to make bootstrap tables editable.
