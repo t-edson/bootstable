@@ -123,7 +123,7 @@ Parameters:
 
       // Callbacks
       onEdit: (rowElement) => {},         // Called after clicking edit button
-      onBeforeDelete: (rowElement) => {}, // Called just before deletion
+      onBeforeDelete: (rowElement) => {}, // Called just before deletion must return a boolean, true means row will be deleted.
       onDelete: (rowElement) => {},       // Called after deletion button, but after onBeforeDelete. If onBeforeDelete returns false, bypass.
       onAdd: (rowElement) => {}           // Called when new row is added to table
 

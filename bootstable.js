@@ -18,10 +18,10 @@ class bootstable {
       addButtonEdit: true, // set fields to editable when add
       buttons: null,
       customInputs: [], // Add in custom form fields
-      onEditSave: function () {}, //Called after edition
-      onBeforeDelete: function () {}, //Called before deletion
-      onDelete: function () {}, //Called after deletion
-      onAdd: function () {}, //Called when added a new row
+      onEditSave: () => {}, //Called after edition
+      onBeforeDelete: () => true, //Called before deletion
+      onDelete: () => {}, //Called after deletion
+      onAdd: () => {}, //Called when added a new row
     };
     this.table = document.getElementById(element);
     this.headers = this._getTableHeaders(this.table);
@@ -257,9 +257,10 @@ class bootstable {
   butRowDelete(/** @type HTMLElement */ but) {
     //Elimina la fila actual
     var $row = but.parentNode.parentNode.parentNode; //accede a la fila
-    this.params.onBeforeDelete($row);
-    $row.remove();
-    this.params.onDelete();
+    if (this.params.onBeforeDelete($row)) {
+      $row.remove();
+      this.params.onDelete($row);
+    }
   }
   //Functions that can be called directly
   rowAddNew(/** @type string */ tabId, /** @type array */ initValues = []) {
