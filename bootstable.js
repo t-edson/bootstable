@@ -1,7 +1,7 @@
 /*
 Bootstable
  @description  Javascript library to make HMTL tables editable, using Bootstrap
- @version 1.5.30
+ @version 1.5.32
  @author Tito Hinostroza
  @contributors Tyler Hardison
 */
