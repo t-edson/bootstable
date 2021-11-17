@@ -1,6 +1,6 @@
 {
   "name": "seraphnet-bootstable",
-  "version": "1.5.36",
+  "version": "1.5.38",
   "description": "Bootstrap Editable Tables, Updated for Version 5 of Bootstrap",
   "main": "bootstable.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "url": "https://github.com/SeraphNet/bootstable/issues"
   },
   "homepage": "https://github.com/SeraphNet/bootstable#readme",
-  "dependencies": {
+  "devDependencies": {
     "uglify-js": "^3.14.3"
   }
 }
