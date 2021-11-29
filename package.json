@@ -1,0 +1,29 @@
+{
+  "name": "seraphnet-bootstable",
+  "version": "1.5.38",
+  "description": "Bootstrap Editable Tables, Updated for Version 5 of Bootstrap",
+  "main": "bootstable.js",
+  "scripts": {
+    "prepare": "yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "uglifyjs -c -m -o bootstable.min.js --source-map \"filename='bootstable.min.js.map'\" -- bootstable.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeraphNet/bootstable.git"
+  },
+  "keywords": [
+    "bootstrap",
+    "table",
+    "editable"
+  ],
+  "author": "Tito Hinostroza",
+  "license": "GPL3",
+  "bugs": {
+    "url": "https://github.com/SeraphNet/bootstable/issues"
+  },
+  "homepage": "https://github.com/SeraphNet/bootstable#readme",
+  "devDependencies": {
+    "uglify-js": "^3.14.3"
+  }
+}

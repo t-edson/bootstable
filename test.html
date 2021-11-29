@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html lang="">
-<head>
-  <meta charset="utf-8">
-  
-<!-- Styles -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <head>
+        <meta charset="utf-8">
+        <!-- Styles -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" integrity="sha384-72FuSDrdBU83LuAcJOOJ5tFU9kXIOLW+7XCpfoksrHUBWYk8qe+XG+f4gJ5X+wta" crossorigin="anonymous">
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-</head>
+    </head>
 
-<body >
-    <div>Testing editable table</div>
+    <body >
+        <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bootstable - Tiny Utility for Producing Editable Tables</div>
+                            <p class="card-text">
+                                <table class="table table-borded table-responsive table-striped " id="table-list">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Character</th>
+                                            <th>Origin</th>
+                                            <th>Year</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Iron Man</td>
+                                            <td>Self Invented Suit.</td>
+                                            <td>1963</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thor</td>
+                                            <td>God of Thunder</td>
+                                            <td>Pre-history</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Captain America</td>
+                                            <td>Result of Super Soldier Experiments in WW2</td>
+                                            <td>1941</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hulk</td>
+                                            <td>Exposure to Gamma Radiation</td>
+                                            <td>1962</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ant-Man</td>
+                                            <td>Created using Pym Particles and Suit Tech</td>
+                                            <td>1962</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="table-content">
-        <table class="table table-borded table-responsive table-striped " id="table-list">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Gental</th>
-                    <th>email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>James</td>
-                    <td>Male</td>
-                    <td>jhsdfgh@hotmail.com</td>
-                </tr>
-                <tr>
-                    <td>Sams</td>
-                    <td>Male</td>
-                    <td>hhfdfg@hotmail.com</td>
-                </tr>
-                <tr>
-                    <td>Mary</td>
-                    <td>Female</td>
-                    <td>vccch@gmail.com</td>
-                </tr>
-                <tr>
-                    <td>Ashly</td>
-                    <td>Female</td>
-                    <td>asss@gmail.com</td>
-                </tr>
-                <tr>
-                    <td>Eden</td>
-                    <td>Male</td>
-                    <td>edd@hotmail.com</td>
-                </tr>
-            </tbody>
-        </table>
-        <button class="btn btn-info" id="add"><span class="glyphicon glyphicon-plus-sign"></span>Add New Members</button>
-    </div>    
-    
-    <br>
-
-<script src="bootstable.js"></script>
-<script>
-//apply
-$("#table-list").SetEditable();
-$('#add').click(function() {
-    rowAddNew('table-list', [1,2,3]);
-});
-
-</script>
-</body>
-
+        <script src="bootstable.js"></script>
+        <script>
+            //apply
+            const bstable = new bootstable("table-list", {
+                $addButton: "but-add",
+                columnsEd: [
+                    0, 1, 2
+                ],
+                exportJsonButton: true,
+                exportCsvButton: true,
+                defaultValues: ["Wasp", "Partner to Ant-Man", "1963"]
+            });
+        </script>
+    </body>
 </html>

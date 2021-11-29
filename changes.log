@@ -1,3 +1,21 @@
+Version 1.5.32
+==============
+* First stable release.
+
+Version 1.5.14 
+==============
+* Converted to class. 
+
+Version 1.5.0 (November 9, 2021)
+================================
+* Removed jQuery dependency and switched to vanilla js
+* Removed Glyphicon dependency and switched to FontAwesome Free
+* Rewrote ExportToJson to utilize a real JSON object
+* Switched HTML building to use DOM (75%)
+* Main object is responsible for all events, no need to define events in your code.
+* Updates to documentation to make callbacks more obvious
+* THIS IS BETA, IT'S NOT LIKELY TO WORK
+
 Version 1.3
 ===========
 * Code is ordered and some names and comments are translated to english.
